@@ -1,5 +1,4 @@
-import JSBridge, { getJavaObject } from "~/utils/JSBridge";
-
+import JSBridge, { getJavaObject } from "../../utils/JSBridge.js";
 const BridgedStackPane = Java.type('javafx.scene.layout.StackPane');
 
 export default class StackPane extends JSBridge {
