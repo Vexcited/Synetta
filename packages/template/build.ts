@@ -23,7 +23,6 @@ await build({
 
   // Leave all those parameters like they are.
   treeShaking: true,
-  platform: "node",
   target: "es2021",
   format: "esm",
   bundle: true
