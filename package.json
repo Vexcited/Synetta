@@ -1,0 +1,7 @@
+{
+  "name": "@synetta/workspace",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*"
+  ]
+}
