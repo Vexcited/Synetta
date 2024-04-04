@@ -1,28 +1,23 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleDetection": "auto",
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
-    "allowJs": true,
-
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-
     "strict": true,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
+    "module": "NodeNext",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "jsx": "preserve",
+    "verbatimModuleSyntax": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
 
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"]
-    }
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "experimentalDecorators": true,
+    "lib": ["ESNext", "DOM"],
+    "types": [],
+    "jsxImportSource": "synetta"
   },
-
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./dist", "./*.d.ts", "./*.js"]
 }

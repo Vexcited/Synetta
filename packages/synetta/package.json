@@ -2,18 +2,37 @@
   "name": "synetta",
   "version": "0.1.0",
   "type": "module",
+  "author": "Mikkel RINGAUD <mikkel@milescode.dev> (https://github.com/Vexcited)",
+  "repository": "github:Vexcited/Synetta",
   "scripts": {
-    "bundle": "tsup --format esm && mv ./dist/index.js ./src-java/src/main/resources/index.bundle.mjs",
-    "start": "mvn -f ./src-java/pom.xml clean javafx:run"
+    "build": "rm -rf dist && tsc && tsx build.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffect": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./jsx-runtime": {
+      "types": "./dist/jsx-runtime.d.ts",
+      "default": "./dist/jsx-runtime.js"
+    },
+    "./bridge": {
+      "types": "./dist/bridge/index.d.ts",
+      "default": "./dist/bridge/index.js"
+    }
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
+    "esbuild": "^0.20.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "solid-js": "^1.8.16",
-    "tsup": "^8.0.2"
+    "solid-js": "^1.8.16"
   }
 }

@@ -9,3 +9,5 @@ declare const Java: {
    */
   type(fqdn: string): any;
 };
+
+// declare const print: (...args: any[]) => void;
