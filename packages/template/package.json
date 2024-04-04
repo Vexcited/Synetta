@@ -1,18 +1,20 @@
 {
-  "name": "template",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "synetta-template",
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "synetta": "workspace:^"
+    "build": "tsx build.ts",
+    "sync": "mv ./dist/index.js ./src-java/src/main/resources/index.bundle.mjs",
+    "start": "mvn -f ./src-java/pom.xml clean javafx:run",
+    "all": "pnpm build && pnpm sync && pnpm start"
   },
   "devDependencies": {
-    "vite": "^5.2.8"
+    "esbuild": "^0.20.2",
+    "esbuild-plugin-synetta": "workspace:*",
+    "tsx": "^4.7.1",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "synetta": "workspace:^"
   }
 }
