@@ -44,6 +44,9 @@ importers:
 
   packages/synetta:
     dependencies:
+      core-js:
+        specifier: ^3.36.1
+        version: 3.36.1
       solid-js:
         specifier: ^1.8.16
         version: 1.8.16
@@ -1006,6 +1009,11 @@ packages:
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+    dev: false
+
+  /core-js@3.36.1:
+    resolution: {integrity: sha512-BTvUrwxVBezj5SZ3f10ImnX2oRByMxql3EimVqMysepbC9EeMUOpLwdy6Eoili2x6E4kf+ZUB5k/+Jv55alPfA==}
+    requiresBuild: true
     dev: false
 
   /csstype@3.1.3:

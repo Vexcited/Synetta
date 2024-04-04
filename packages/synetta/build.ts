@@ -12,6 +12,8 @@ const entryPoints = [
   "src/bridge/scene/Scene.ts",
   "src/bridge/stage/Stage.ts",
   "src/bridge/utils/JSBridge.ts",
+  // timers polyfill
+  "src/bridge/utils/timers.polyfill.ts",
 ];
 
 await Promise.all([

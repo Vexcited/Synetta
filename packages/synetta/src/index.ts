@@ -1,3 +1,7 @@
+// polyfills for solid-js
+import "./bridge/utils/timers.polyfill.js";
+import "core-js/actual/queue-microtask.js";
+
 import type { JSX } from "./jsx-runtime.js";
 export type { JSX } from "./jsx-runtime.js";
 

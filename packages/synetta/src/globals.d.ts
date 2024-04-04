@@ -8,6 +8,8 @@ declare const Java: {
    * @param fqdn 
    */
   type(fqdn: string): any;
+
+  extend(bridge: any): any;
 };
 
 // declare const print: (...args: any[]) => void;
