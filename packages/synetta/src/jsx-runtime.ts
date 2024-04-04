@@ -134,10 +134,7 @@ export class VNode {
     }
 
     appendChild (node: VNode) {
-        this.childNodes = [
-            ...this.childNodes,
-            node,
-        ]
+        this.childNodes.push(node)
     }
 
     setParentNode (node: VNode) {
