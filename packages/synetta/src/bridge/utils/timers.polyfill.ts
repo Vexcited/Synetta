@@ -4,6 +4,7 @@ import JSBridge, { getJavaObject } from "./JSBridge.js";
 const TimerBridge = Java.type('java.util.Timer');
 const TimerTaskBridge = Java.type('java.util.TimerTask');
 const PolyfillTimerTaskBridge = Java.extend(TimerTaskBridge);
+const Platform = Java.type('javafx.application.Platform');
 
 /**
  * Timer class to handle scheduling tasks.
@@ -32,7 +33,9 @@ class Timer extends JSBridge {
  */
 class PolyfillTimerTask extends JSBridge {
   constructor (run: () => void) {
-    const bridge = new PolyfillTimerTaskBridge({ run });
+    const bridge = new PolyfillTimerTaskBridge({
+      run: () => Platform.runLater(() => run())
+    });
     super(bridge);
   }
 }
