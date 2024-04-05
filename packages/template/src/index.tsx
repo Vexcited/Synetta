@@ -1,6 +1,5 @@
 import {
   type Component,
-  type FlowComponent,
   
   handleApp,
   createSignal,
@@ -8,30 +7,29 @@ import {
   onMount
 } from "synetta";
 
-const AComp: Component<{ value: string }> = (props) => {
+import StageContext from "./components/StageContext";
+
+const MyComponent: Component<{ value: string }> = (props) => {
   createEffect(() => {
-    console.info("Reactive 'value': " + props.value);
+    console.info("MyComponent received a new 'value': " + props.value);
   });
 
   return <></>;
 }
 
-const Wrapper: FlowComponent = (props) => {
-  return props.children;
-};
-
 export default handleApp((stage) => {
-  const [val, setVal] = createSignal("Hello, Synetta! (from boot)");
+  const [value, setValue] = createSignal("Hello Synetta! We're still on initialization value.");
     
   onMount(() => {
-    stage.show();
+    console.info("App is mounted !");
 
     setInterval(() => {
-      setVal("Hello, Synetta! " + new Date().toISOString());
-    }, 1000);
+      console.info("Will update 'value' with: " + value());
+      setValue("Hello Synetta! We're now @ " + Date.now());
+    }, 100);
   });
 
-  <Wrapper>
-    <AComp value={val()} />
-  </Wrapper>
+  <StageContext instance={stage} title={value()} show>
+    <MyComponent value={value()} />
+  </StageContext>
 });
