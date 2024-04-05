@@ -1,11 +1,10 @@
 import { createRoot } from "solid-js";
+import { Stage } from "./bridge/index.js";
 
-export function startApp (code: () => void) {
-  let disposer: () => void;
-  createRoot((d) => {
-    disposer = d;
-    code();
+export const handleApp = (code: (stage: Stage) => void) => (_stage: any) => {
+  const stage = Stage._fromBridged(_stage);
+  
+  createRoot(() => {
+    code(stage);
   });
-
-  return disposer!;
 }
