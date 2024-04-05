@@ -6,12 +6,11 @@ export declare namespace JSX {
   type ArrayElement = Element[];
   type ElementType = Element | ArrayElement | Component<any> | Accessor<Element>
 
-  interface IntrinsicElements {}
-}
+  interface ElementChildrenAttribute {
+    children: {};
+  }
 
-const log = (...args: any[]) => {
-  // @ts-ignore
-  print(`[RENDERER] `, ...args);
+  interface IntrinsicElements {}
 }
 
 export const {
@@ -28,8 +27,7 @@ export const {
   mergeProps
 } = createRenderer<VNode>({
   createElement(string: string): VElement {
-    log('creating element', string);
-
+    console.debug('Creating element', string);
     return new VElement('text');
   },
   createTextNode(value: string): VElement {
@@ -42,11 +40,11 @@ export const {
     node.setAttribute(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
-    log('render', parent, node, node.childNodes[0], node.content)
+    console.debug('render', parent, node, node.childNodes[0], node.content)
     if(!parent){
-      log('no parent found!', node, node.content, node.childNodes)
+      console.debug('no parent found!', node, node.content, node.childNodes)
     }
-    log('inserting node', node);
+    console.debug('inserting node', node);
     // parent.insertBefore(node, anchor);
   },
   isTextNode(node: VElement) {
@@ -112,8 +110,6 @@ export class VNode {
     // So renderer can detect things like text and handle accordingly
     type: VNodeTypes;
 
-    // We keep track of the parent element (scene, group, mesh, etc)
-    // so we can add object to ThreeJS Scene (or nest it appropriately)
     parentElement: any;
 
     constructor (content: any, parent = null, type = VNodeTypes.ELEMENT, parentElement?: any) {
@@ -153,7 +149,6 @@ export class VNode {
         print('inserting before', node.setParentNode, node.content)
         node.setParentNode(this);
         node.setParentElement(this.parentElement);
-        // ThreeJS: Set the scene from parent node
 
         // Find anchor and insert node using anchor index 
         // (aka before, since it will push anchor index forward)
@@ -180,29 +175,19 @@ export class VNode {
                 // If the index is 0, we need to also update firstChild property
                 if(anchorIndex === 0) this.firstChild = node;
 
-                // ThreeJS: Add element to Scene
                 node.addToParentElement();
 
                 return this;
             }
         }
-        this.childNodes = [
-            ...this.childNodes,
-            node,
-        ]
-
-        // ThreeJS: Add element to Scene
+        this.childNodes.push(node)
         node.addToParentElement();
-
         return this;
     }
 
     removeChild(node: VNode) {
         this.childNodes = this.childNodes.filter((childNode) => node != childNode);
-
-        // ThreeJS: Remove from Scene
         node.removeFromParentElement();
-
         return this;
     }
 
