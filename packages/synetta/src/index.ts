@@ -1,4 +1,5 @@
 // polyfills for solid-js
+import "./bridge/utils/console.polyfill.js"
 import "./bridge/utils/timers.polyfill.js";
 import "core-js/actual/queue-microtask.js";
 
@@ -45,7 +46,7 @@ export {
 
 export type { Accessor, AccessorArray, Setter, Owner } from "solid-js";
 
-export { startApp } from "./reactive.js";
+export { handleApp } from "./reactive.js";
 
 /**
  * General component type without implicit `children` prop.
