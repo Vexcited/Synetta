@@ -14,6 +14,8 @@ const entryPoints = [
   "src/bridge/utils/JSBridge.ts",
   // timers polyfill
   "src/bridge/utils/timers.polyfill.ts",
+  // console polyfill
+  "src/bridge/utils/console.polyfill.ts",
 ];
 
 await Promise.all([

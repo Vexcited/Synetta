@@ -11,5 +11,3 @@ declare const Java: {
 
   extend(bridge: any): any;
 };
-
-// declare const print: (...args: any[]) => void;
