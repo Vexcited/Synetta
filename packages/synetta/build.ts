@@ -1,4 +1,4 @@
-import * as esbuild from "esbuild";
+import { build } from "esbuild";
 
 const entryPoints = [
   "src/index.ts",
@@ -18,20 +18,9 @@ const entryPoints = [
   "src/bridge/utils/console.polyfill.ts",
 ];
 
-await Promise.all([
-  esbuild.build({
-    entryPoints,
-    outdir: "dist",
-    format: "esm",
-    jsx: "preserve"
-  }),
-  // esbuild.build({
-  //   entryPoints,
-  //   outdir: "dist",
-  //   format: "cjs",
-  //   jsx: "preserve",
-  //   outExtension: {
-  //     ".js": ".cjs",
-  //   },
-  // })
-])
+await build({
+  entryPoints,
+  outdir: "dist",
+  format: "esm",
+  jsx: "preserve"
+})
