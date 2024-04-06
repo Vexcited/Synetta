@@ -1,6 +1,7 @@
 import type Scene from "../scene/Scene.js";
 import JSBridge, { getJavaObject } from "../utils/JSBridge.js";
-const BridgedStage = Java.type('javafx.stage.Stage');
+// @ts-ignore
+const BridgedStage = javafx.stage.Stage;
 
 export default class Stage extends JSBridge {
   /**

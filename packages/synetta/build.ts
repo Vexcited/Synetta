@@ -11,11 +11,7 @@ const entryPoints = [
   "src/bridge/scene/layout/StackPane.ts",
   "src/bridge/scene/Scene.ts",
   "src/bridge/stage/Stage.ts",
-  "src/bridge/utils/JSBridge.ts",
-  // timers polyfill
-  "src/bridge/utils/timers.polyfill.ts",
-  // console polyfill
-  "src/bridge/utils/console.polyfill.ts",
+  "src/bridge/utils/JSBridge.ts"
 ];
 
 await build({

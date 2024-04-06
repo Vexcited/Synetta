@@ -1,6 +1,4 @@
-// polyfills for solid-js
-import "./bridge/utils/console.polyfill.js"
-import "./bridge/utils/timers.polyfill.js";
+// Polyfill for `solid-js`.
 import "core-js/actual/queue-microtask.js";
 
 import type { JSX } from "./jsx-runtime.js";
@@ -46,7 +44,7 @@ export {
 
 export type { Accessor, AccessorArray, Setter, Owner } from "solid-js";
 
-export { handleApp } from "./reactive.js";
+export { renderApplication } from "./reactive.js";
 
 /**
  * General component type without implicit `children` prop.
@@ -57,7 +55,7 @@ export type Component<P = {}> = (props: P) => JSX.Element;
  * Extend props to forbid the `children` prop. Prevent passing `children` by chance.
  */
 export type VoidProps<P = {}> = P & {
-    children?: never;
+  children?: never;
 };
 
 /**
