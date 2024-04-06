@@ -14,7 +14,6 @@ export declare namespace JSX {
 }
 
 export const {
-  render,
   effect,
   memo,
   createComponent,
