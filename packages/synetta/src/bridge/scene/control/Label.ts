@@ -1,14 +1,9 @@
-import JSBridge from "../../utils/JSBridge.js";
+import Labeled from "./Labeled.js";
 
-// @ts-ignore
-const BridgedLabel = javafx.scene.control.Label;
-
-export default class Label extends JSBridge {
-  public constructor (text?: string) {
-    super(new BridgedLabel(text ?? ""));
-  }
-
-  public setText (text: string): void {
-    return this._bridged.setText(text);
+export default class Label extends Labeled {
+  public constructor (text = "") {
+    // @ts-expect-error : bridge is not typed.
+    const label = new javafx.scene.control.Label(text);
+    super(label);
   }
 }
