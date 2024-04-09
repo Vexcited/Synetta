@@ -110,9 +110,12 @@
         <version>${javafx.maven.plugin.version}</version>
         <configuration>
           <mainClass>${javafx.mainClass}</mainClass>
+          <options>
+            <option>--add-exports</option>
+            <option>javafx.base/com.sun.javafx.collections=ALL-UNNAMED</option>
+          </options>
         </configuration>
       </plugin>
     </plugins>
   </build>
-  
 </project>
