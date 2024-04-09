@@ -6,7 +6,7 @@ import java.net.URL;
 import com.caoccao.javet.interception.jvm.JavetJVMInterceptor;
 import com.caoccao.javet.interop.V8Host;
 import com.caoccao.javet.interop.V8Runtime;
-import com.caoccao.javet.interop.converters.JavetProxyConverter;
+import com.caoccao.javet.interop.converters.JavetBridgeConverter;
 import com.caoccao.javet.javenode.JNEventLoop;
 import com.caoccao.javet.javenode.enums.JNModuleType;
 
@@ -25,8 +25,18 @@ public class App extends Application {
     // Synetta expects a global `__PRIMARY_STAGE__` variable that'll be used in `renderApplication` function.
     v8Runtime.getGlobalObject().set("__PRIMARY_STAGE__", stage);
 
-    JavetProxyConverter javetProxyConverter = new JavetProxyConverter();
-    v8Runtime.setConverter(javetProxyConverter);
+    // `JavetBridgeConverter` creates proxies for all Java types.
+    // For example, when doing `someNode.getChildren()`, it'll return a proxy object instead
+    // of converting the `ObservableList` to a JavaScript array where we can't access Java methods anymore.
+    // See <https://www.caoccao.com/Javet/reference/converters/bridge_converter.html> for more information.
+    JavetBridgeConverter javetBridgeConverter = new JavetBridgeConverter();
+    v8Runtime.setConverter(javetBridgeConverter);
+
+    // Add a custom logger to the runtime.
+    // Will be used by `console` to log messages.
+    // Remove this if you want the default one from Javenode.
+    Logger logger = new Logger();
+    v8Runtime.setLogger(logger);
     
     // Add JVM interceptor to the global object.
     JavetJVMInterceptor javetJVMInterceptor = new JavetJVMInterceptor(v8Runtime);
