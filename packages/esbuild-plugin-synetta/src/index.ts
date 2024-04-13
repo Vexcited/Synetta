@@ -54,7 +54,7 @@ export interface Options {
 
     /**
      * Boolean indicates whether to set current render context on Custom Elements and slots.
-     * Useful for seemless Context API with Web Components.
+     * Useful for seamless Context API with Web Components.
      *
      * @default true
      */
@@ -72,7 +72,7 @@ export interface Options {
 
 export function synetta (options?: Options): Plugin {
   return {
-    name: "esbuild:solid",
+    name: "esbuild:synetta",
 
     setup(build) {
       build.onLoad({ filter: /\.(t|j)sx$/ }, async (args) => {
@@ -81,14 +81,16 @@ export function synetta (options?: Options): Plugin {
         const { name, ext } = parse(args.path);
         const filename = name + ext;
 
-        const solidOptions = {
-          ...options?.solid,
-          moduleName: "synetta/jsx-runtime",
-          generate: "universal"
-        };
-
         const result = await transformAsync(source, {
-          presets: [[solid, solidOptions], [ts, options?.typescript ?? {}]],
+          presets: [
+            [solid, {
+              ...options?.solid,
+              moduleName: "synetta/jsx-runtime",
+              generate: "universal"
+            }],
+            [ts, options?.typescript ?? {}]
+          ],
+
           filename,
           sourceMaps: "inline",
           ...(options?.babel ?? {})
