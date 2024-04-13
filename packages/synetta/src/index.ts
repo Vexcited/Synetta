@@ -3,6 +3,7 @@ import "core-js/actual/queue-microtask.js";
 
 import type { JSX } from "./jsx-runtime.js";
 export type { JSX } from "./jsx-runtime.js";
+export { spread as spreadProps } from "./jsx-runtime.js";
 
 export {
   ErrorBoundary,
@@ -44,7 +45,7 @@ export {
 
 export type { Accessor, AccessorArray, Setter, Owner } from "solid-js";
 
-export { renderApplication } from "./reactive.js";
+export { renderApplication, children, useContext, createContext, type Context } from "./reactive.js";
 
 /**
  * General component type without implicit `children` prop.
