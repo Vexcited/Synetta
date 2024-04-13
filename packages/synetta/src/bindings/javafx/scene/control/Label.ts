@@ -1,9 +1,11 @@
 import Labeled from "./Labeled.js";
 
 export default class Label extends Labeled {
+  // @ts-expect-error : not typed.
+  static readonly #Bridge = javafx.scene.control.Label;
+
   public constructor (text = "") {
-    // @ts-expect-error : bridge is not typed.
-    const label = new javafx.scene.control.Label(text);
+    const label = new Label.#Bridge(text);
     super(label);
   }
 }

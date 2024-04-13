@@ -1,5 +1,5 @@
-import JSBridge from "../../utils/JSBridge.js";
-import { getJavaObject } from "../../utils/JSBridge.js";
+import Object from "../../../java/lang/Object.js";
+import getJavaObject from "../../../utils/getJavaObject.js";
 
 /**
  * A bridge over the `Labeled` class to prevent redefining the same methods in each class.
@@ -7,32 +7,32 @@ import { getJavaObject } from "../../utils/JSBridge.js";
  * 
  * @see https://openjfx.io/javadoc/21/javafx.controls/javafx/scene/control/Labeled.html
  */
-export default abstract class Labeled extends JSBridge {
+export default abstract class Labeled extends Object {
   protected constructor (elementBridged: any) {
     super(elementBridged);
   }
 
-  public getText (): string {
+  public get text (): string {
     return getJavaObject(this).getText();
   }
   
-  public setText (text: string): void {
+  public set text (text: string) {
     getJavaObject(this).setText(text);
   }
 
-  public isUnderline (): boolean {
+  public get isUnderline (): boolean {
     return getJavaObject(this).isUnderline();
   }
 
-  public setUnderline (value: boolean): void {
+  public set isUnderline (value: boolean) {
     getJavaObject(this).setUnderline(value);
   }
 
-  public isWrapText (): boolean {
+  public get isWrapText (): boolean {
     return getJavaObject(this).isWrapText();
   }
 
-  public setWrapText (value: boolean): void {
+  public set isWrapText (value: boolean) {
     getJavaObject(this).setWrapText(value);
   }
 }
