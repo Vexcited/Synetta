@@ -3,41 +3,50 @@ import {
   renderApplication,
 
   // Re-exports from SolidJS
-  type Component,
   createSignal,
-  createEffect,
-  onMount
+  For
 } from "synetta";
 
-import StageContext from "./components/StageContext";
-import { Label, Scene, StackPane } from "synetta/bridge";
-
-const MyComponent: Component<{ value: string }> = (props) => {
-  createEffect(() => {
-    console.info("MyComponent received a new 'value': " + props.value);
-  });
-
-  return <></>;
-}
+import {
+  PrimaryStage,
+  Button,
+  Label,
+  Scene,
+  VBox
+} from "synetta/bridge";
 
 renderApplication((stage) => {
-  const [value, setValue] = createSignal("Hello Synetta! We're still on initialization value.");
-    
-  onMount(() => {
-    console.info("App is mounted !");
+  const [count, setCount] = createSignal(0);
 
-    stage.setScene(new Scene(new Label("Hello, Synetta!"), 1280, 720));
+  try {
+  return (<PrimaryStage instance={stage} title="Counting app !" show>
+    <Scene width={500} height={200}>
+      <VBox>
+        <Button onMouseClicked={() => setCount(prev => prev + 1)}>
+          Increment
+        </Button>
+        <Button onMouseClicked={() => setCount(prev => prev - 1)}>
+          Decrement
+        </Button>
 
-    setInterval(() => {
-      // @ts-ignore
-      javafx.application.Platform.runLater(function () {
-        console.info("Will update 'value' with: " + value());
-        setValue("Hello Synetta! We're now @ " + Date.now());
-      })
-    }, 1000);
-  });
+        <Label>
+          Value: {count().toString()}
+        </Label>
 
-  <StageContext instance={stage} title={value()} show>
-    <MyComponent value={value()} />
-  </StageContext>
+        <For each={new Array(count() >= 0 ? count() : 0).fill(null)}>
+          {
+            (_, i) => (
+              <Label>
+                {(i() + 1).toString()}
+              </Label>
+            )
+          }
+        </For>
+      </VBox>
+    </Scene>
+  </PrimaryStage>);
+  }
+  catch (e) {
+    console.error(e);
+  }
 });
