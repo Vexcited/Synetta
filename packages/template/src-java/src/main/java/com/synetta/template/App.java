@@ -21,10 +21,7 @@ public class App extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     V8Runtime v8Runtime = V8Host.getV8Instance().createV8Runtime();
-
-    // Synetta expects a global `__PRIMARY_STAGE__` variable that'll be used in `renderApplication` function.
-    v8Runtime.getGlobalObject().set("__PRIMARY_STAGE__", stage);
-
+    
     // `JavetBridgeConverter` creates proxies for all Java types.
     // For example, when doing `someNode.getChildren()`, it'll return a proxy object instead
     // of converting the `ObservableList` to a JavaScript array where we can't access Java methods anymore.
@@ -51,6 +48,9 @@ public class App extends Application {
     @SuppressWarnings("resource")
     JNEventLoop eventLoop = new JNEventLoop(v8Runtime);
     eventLoop.loadStaticModules(JNModuleType.Console, JNModuleType.Timers);
+
+    // Synetta expects a global `__PRIMARY_STAGE__` variable that'll be used in `renderApplication` function.
+    v8Runtime.getGlobalObject().set("__PRIMARY_STAGE__", stage);
 
     // Path to the bundle file, will be placed here by default.
     URL bundleURL = getClass().getResource("/index.bundle.mjs");
