@@ -22,6 +22,10 @@
       "types": "./dist/jsx-runtime.d.ts",
       "default": "./dist/jsx-runtime.js"
     },
+    "./bindings": {
+      "types": "./dist/bindings/index.d.ts",
+      "default": "./dist/bindings/index.js"
+    },
     "./bridge": {
       "types": "./dist/bridge/index.d.ts",
       "default": "./dist/bridge/index.js"
