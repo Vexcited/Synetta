@@ -2,21 +2,61 @@ import { build } from "esbuild";
 
 const entryPoints = [
   "src/index.ts",
-  "src/reactive.ts",
   "src/jsx-runtime.ts",
+  "src/reactive.ts",
   
+  // bindings
+  "src/bindings/index.ts",
+  "src/bindings/utils/getJavaObject.ts",
+  "src/bindings/utils/JavaValue.ts",
+  "src/bindings/java/lang/Object.ts",
+  "src/bindings/javafx/collections/ObservableList.ts",
+  "src/bindings/javafx/scene/control/Button.ts",
+  "src/bindings/javafx/scene/control/Label.ts",
+  "src/bindings/javafx/scene/control/Labeled.ts",
+  "src/bindings/javafx/scene/layout/Pane.ts",
+  "src/bindings/javafx/scene/layout/StackPane.ts",
+  "src/bindings/javafx/scene/layout/VBox.ts",
+  "src/bindings/javafx/scene/Scene.ts",
+  "src/bindings/javafx/stage/Stage.ts",
+
   // bridge
   "src/bridge/index.ts",
-  "src/bridge/scene/control/Label.ts",
-  "src/bridge/scene/layout/StackPane.ts",
-  "src/bridge/scene/Scene.ts",
-  "src/bridge/stage/Stage.ts",
-  "src/bridge/utils/JSBridge.ts"
 ];
 
-await build({
-  entryPoints,
-  outdir: "dist",
-  format: "esm",
-  jsx: "preserve"
-})
+const contextsEntryPoints = [
+  "src/bridge/contexts/CurrentStage.tsx",
+];
+
+const componentsEntryPoints = [
+  "src/bridge/components/Button.tsx",
+  "src/bridge/components/Label.tsx",
+  "src/bridge/components/Scene.tsx",
+  "src/bridge/components/StackPane.tsx",
+  "src/bridge/components/PrimaryStage.tsx",
+  "src/bridge/components/VBox.tsx",
+]
+
+await Promise.all([
+  build({
+    entryPoints,
+    outdir: "dist",
+    format: "esm",
+    jsx: "preserve"
+  }),
+  build({
+    entryPoints: contextsEntryPoints,
+    outdir: "dist/bridge/contexts",
+    format: "esm",
+    jsx: "preserve",
+    outExtension: { ".js": ".jsx" }
+  }),
+  build({
+    entryPoints: componentsEntryPoints,
+    outdir: "dist/bridge/components",
+    format: "esm",
+    jsx: "preserve",
+    outExtension: { ".js": ".jsx" }
+  })
+]);
+
