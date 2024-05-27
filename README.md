@@ -4,8 +4,8 @@
 
 ## Prerequisites
 
-- Maven v3.8.7
-- Java SDK v21.0.2
+- Maven v3.9.6 (you can probably use older versions, that's what I use)
+- JDK v17
 - [JavaFX](https://gluonhq.com/products/javafx) v21.0.2
 
 ## Resources
