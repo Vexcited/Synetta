@@ -1,6 +1,11 @@
 {
   "name": "@synetta/workspace",
   "version": "0.0.0",
+  "scripts": {
+    "build:plugin": "pnpm run --filter esbuild-plugin-synetta build",
+    "build:synetta": "pnpm run --filter synetta build",
+    "start:template": "pnpm run --filter synetta-template all"
+  },
   "workspaces": [
     "packages/*"
   ]
