@@ -13,6 +13,8 @@ This file contains the build script for the TypeScript source code (see below).
 It uses `esbuild` and the `esbuild-plugin-synetta` plugin to compile the TSX code into a single JavaScript file
 that'll be run by Javet in the Java application.
 
+Will also move the compiled JavaScript file to the `src-java` directory.
+
 ### [`src`](./src/)
 
 This directory contains the TypeScript source code for the main application.
@@ -38,14 +40,10 @@ in there but make sure to not remove essential content that is required for Syne
 Runs the build script, located at [`./build.ts`](./build.ts).
 You can read more about the build script in [the section above](#buildts).
 
-### `sync`
-
-Moves the compiled JavaScript file from `dist/index.js` directory to the `src-java` resources directory.
-
 ### `start`
 
 Runs the JavaFX application using Maven.
 
 ### `all`
 
-Runs the `build`, `sync`, and `start` scripts in sequence.
+Runs the `build` and `start` scripts in sequence.

@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "tsx build.ts",
-    "sync": "mv ./dist/index.js ./src-java/src/main/resources/index.bundle.mjs",
     "start": "mvn -f ./src-java/pom.xml clean javafx:run",
-    "all": "pnpm build && pnpm sync && pnpm start"
+    "all": "pnpm build && pnpm start"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "esbuild": "^0.20.2",
     "esbuild-plugin-synetta": "workspace:*",
     "tsx": "^4.7.1",

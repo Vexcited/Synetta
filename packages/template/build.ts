@@ -1,6 +1,8 @@
 import { build } from "esbuild";
 import { synetta } from "esbuild-plugin-synetta";
+import { rename } from "node:fs/promises";
 
+// Building to "./dist/index.js".
 await build({
   /**
    * Only one entry point is currently supported.
@@ -27,3 +29,5 @@ await build({
   format: "esm",
   bundle: true
 });
+
+await rename("dist/index.js", "src-java/src/main/resources/index.bundle.mjs");

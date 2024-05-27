@@ -5,7 +5,7 @@
   "author": "Mikkel RINGAUD <mikkel@milescode.dev> (https://github.com/Vexcited)",
   "repository": "github:Vexcited/Synetta",
   "scripts": {
-    "build": "rm -rf dist && tsc && tsx build.ts"
+    "build": "rimraf dist && tsc && tsx build.ts"
   },
   "files": [
     "dist"
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.20.2",
+    "rimraf": "^5.0.7",
     "tsx": "^4.7.1",
     "typescript": "^5.0.0"
   },
