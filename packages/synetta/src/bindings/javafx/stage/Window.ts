@@ -10,7 +10,7 @@ export default class Window extends Object {
   // @ts-expect-error : not typed.
   static readonly #Bridge = javafx.stage.Window;
 
-  public static _createBridgedInstance (): Window {
+  public static __new (): Window {
     return new Window(new Window.#Bridge());
   }
 

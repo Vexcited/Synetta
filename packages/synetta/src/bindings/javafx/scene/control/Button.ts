@@ -8,9 +8,12 @@ export default class Button extends Labeled {
   // @ts-expect-error : not typed.
   static readonly #Bridge = javafx.scene.control.Button;
 
-  public constructor (text = "") {
-    const button = new Button.#Bridge(text);
-    super(button);
+  public static __new(): Button {
+    return new Button(new Button.#Bridge());
+  }
+
+  public constructor (_bridged: any) {
+    super(_bridged);
   }
 
   public set onMouseClicked (callback: (event: any) => void) {

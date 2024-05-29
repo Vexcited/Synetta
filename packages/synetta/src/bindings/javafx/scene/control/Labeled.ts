@@ -1,4 +1,4 @@
-import Object from "../../../java/lang/Object.js";
+import Control from "./Control.js";
 import getJavaObject from "../../../utils/getJavaObject.js";
 
 /**
@@ -7,9 +7,16 @@ import getJavaObject from "../../../utils/getJavaObject.js";
  * 
  * @see https://openjfx.io/javadoc/21/javafx.controls/javafx/scene/control/Labeled.html
  */
-export default abstract class Labeled extends Object {
-  protected constructor (elementBridged: any) {
-    super(elementBridged);
+export default abstract class Labeled extends Control {
+  // @ts-expect-error : not typed.
+  static readonly #Bridge = javafx.scene.control.Labeled;
+
+  public static __new(): Control {
+    throw new Error("You can't create instances of abstract classes.");
+  } 
+
+  protected constructor (_bridged: any) {
+    super(_bridged);
   }
 
   public get text (): string {

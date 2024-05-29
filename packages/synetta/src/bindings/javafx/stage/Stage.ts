@@ -1,30 +1,20 @@
-import JavaObject from "../../java/lang/Object.js";
 import type Scene from "../scene/Scene.js";
 import getJavaObject from "../../utils/getJavaObject.js";
+import Window from "./Window.js";
 
-export default class Stage extends JavaObject {
+/**
+ * @see https://openjfx.io/javadoc/21/javafx.graphics/javafx/stage/Stage.html
+ */
+export default class Stage extends Window {
   // @ts-expect-error : not typed.
   static readonly #Bridge = javafx.stage.Stage;
 
-  /**
-   * Used to create a new instance of `Stage` from JavaFX.
-   * The current constructor takes an instance anc will not create one.
-   * 
-   * This behavior is because the primary stage is given as an instance
-   * already created and cannot be created manually.
-   * 
-   * That's why the instantiation is moved from the constructor to this function.
-   */
-  public static createBridgeInstance (): Stage {
-    const stage = new Stage.#Bridge();
-    return new Stage(stage);
+  public static __new (): Stage {
+    return new Stage(new Stage.#Bridge());
   }
 
-  /**
-   * @param bridgeInstance Allows to make an instance of this class from the bridged object.
-   */
-  public constructor (bridgeInstance: any) {
-    super(bridgeInstance);
+  public constructor (_bridged: any) {
+    super(_bridged);
   }
 
   public set title (title: string) {
@@ -33,17 +23,5 @@ export default class Stage extends JavaObject {
 
   public get title (): string {
     return getJavaObject(this).getTitle();
-  }
-
-  public set scene (scene: Scene) {
-    getJavaObject(this).setScene(getJavaObject(scene));
-  }
-
-  public show (): void {
-    return getJavaObject(this).show();
-  }
-
-  public hide (): void {
-    return getJavaObject(this).hide();
   }
 }
