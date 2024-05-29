@@ -7,9 +7,7 @@ const Scene: FlowComponent<{
   height: number
 }> = (props) => {
   const [p, rest] = splitProps(props, ["children", "width", "height"]);
-  
-  const node = new SceneBridge(p.children as JavaObject, p.width, p.height);
-  console.debug("[Scene]: new SceneBridge()");
+  const node = SceneBridge.__new(p.children as JavaObject, p.width, p.height);
   
   createRenderEffect(() => mergeProps(node, rest));
   return node;
