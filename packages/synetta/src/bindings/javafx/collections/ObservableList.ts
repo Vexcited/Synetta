@@ -1,3 +1,5 @@
+import type JavaValue from "../../utils/JavaValue.js";
+
 // @ts-expect-error
 export default interface ObservableList<E> extends List<E> {
   /**
@@ -11,6 +13,7 @@ export default interface ObservableList<E> extends List<E> {
   clear(): void;
 
   get (index: number): E;
+  add (element: E): boolean;
   add (index: number, element: E): boolean;
 
   size(): number;
@@ -19,4 +22,6 @@ export default interface ObservableList<E> extends List<E> {
 interface List<E> {
   remove(element: E): boolean;
   remove(index: number): E
+
+  contains(element: E): JavaValue<boolean>;
 }
