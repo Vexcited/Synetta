@@ -1,25 +1,13 @@
 import LabelBridge from "../../bindings/javafx/scene/control/Label.js";
-import { createRenderEffect, mergeProps, splitProps, spreadProps, type Component } from "../../index.js";
+import { createRenderEffect, spreadProps, type VoidComponent } from "../../index.js";
 
-const flatAndRun = (children?: string | (string | (() => string))[]): string => {
-  return Array.isArray(children) ? children.map((c) => {
-    if (typeof c === "string") return c;
-    else return c();
-  }).join("") : children || "";
-}
-
-const Label: Component<{ children?: string | (string | (() => string))[] }> = (props) => {
-  const [p, rest] = splitProps(props, ["children"]);
-  
-  const node = new LabelBridge();
-  console.debug("[Label]: new LabelBridge()");
+const Label: VoidComponent<{
+  text: string
+}> = (props) => {
+  const node = LabelBridge.__new();
 
   createRenderEffect(() => (
-    spreadProps(node, mergeProps({
-      get text() {
-        return flatAndRun(p.children);
-      }
-    }, rest))
+    spreadProps(node, props)
   ));
 
   return node;

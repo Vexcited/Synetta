@@ -1,25 +1,17 @@
 import ButtonBridge from "../../bindings/javafx/scene/control/Button.js";
-import { createRenderEffect, mergeProps, splitProps, spreadProps, type Component } from "../../index.js";
+import { createRenderEffect, spreadProps, type Component } from "../../index.js";
 
 const Button: Component<{
-  children?: string | (string | (() => string))[]
+  text: string
   onMouseClicked?: (e: any) => void
 }> = (props) => {
-  const [p, rest] = splitProps(props, ["children"]);
-  
-  const node = new ButtonBridge();
-  console.debug("[Button]: new ButtonBridge()");
+  const node = ButtonBridge.__new();
 
   createRenderEffect(() => (
-    spreadProps(node, mergeProps({
-      get text() {
-        return p.children;
-      }
-    }, rest))
+    spreadProps(node, props)
   ));
 
   return node;
 };
 
 export default Button;
-
