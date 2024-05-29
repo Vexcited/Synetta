@@ -36,16 +36,80 @@ export {
   runWithOwner,
   mergeProps,
   
-  Show,
-  For,
-  Match,
-  Switch,
-  Index
+  // Index
 } from "solid-js";
 
 export type { Accessor, AccessorArray, Setter, Owner } from "solid-js";
 
 export { renderApplication, children, useContext, createContext, type Context } from "./reactive.js";
+
+import type { Accessor } from "solid-js";
+import { For as ForOriginal, Switch as SwitchOriginal, Match as MatchOriginal, Show as ShowOriginal, Index as IndexOriginal } from "solid-js";
+
+declare function ForT<T extends readonly any[], U extends JSX.Element>(props: {
+  each: T | undefined | null | false;
+  fallback?: JSX.Element;
+  children: (item: T[number], index: Accessor<number>) => U;
+}): JSX.Element;
+
+export const For = ForOriginal as typeof ForT;
+
+declare function SwitchT(props: {
+  fallback?: JSX.Element;
+  children: JSX.Element;
+}): JSX.Element;
+
+export const Switch = SwitchOriginal as typeof SwitchT;
+
+type RequiredParameter<T> = T extends () => unknown ? never : T;
+
+declare function ShowT<
+  T,
+  TRenderFunction extends (item: Accessor<NonNullable<T>>) => JSX.Element
+>(props: {
+  when: T | undefined | null | false;
+  keyed?: false;
+  fallback?: JSX.Element;
+  children: JSX.Element | RequiredParameter<TRenderFunction>;
+}): JSX.Element;
+declare function ShowT<
+  T,
+  TRenderFunction extends (item: NonNullable<T>) => JSX.Element
+>(props: {
+  when: T | undefined | null | false;
+  keyed: true;
+  fallback?: JSX.Element;
+  children: JSX.Element | RequiredParameter<TRenderFunction>;
+}): JSX.Element;
+
+export const Show = ShowOriginal as typeof ShowT;
+
+declare function MatchT<
+  T,
+  TRenderFunction extends (item: Accessor<NonNullable<T>>) => JSX.Element
+>(props: {
+  when: T | undefined | null | false;
+  keyed?: false;
+  children: JSX.Element | RequiredParameter<TRenderFunction>;
+}): JSX.Element;
+declare function MatchT<
+  T,
+  TRenderFunction extends (item: NonNullable<T>) => JSX.Element
+>(props: {
+  when: T | undefined | null | false;
+  keyed: true;
+  children: JSX.Element | RequiredParameter<TRenderFunction>;
+}): JSX.Element;
+
+export const Match = MatchOriginal as typeof MatchT;
+
+declare function IndexT<T extends readonly any[], U extends JSX.Element>(props: {
+  each: T | undefined | null | false;
+  fallback?: JSX.Element;
+  children: (item: Accessor<T[number]>, index: number) => U;
+}): JSX.Element;
+
+export const Index = IndexOriginal as typeof IndexT;
 
 /**
  * General component type without implicit `children` prop.
